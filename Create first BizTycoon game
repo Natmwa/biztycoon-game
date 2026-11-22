@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizTycoon - Build Your Business</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  margin: 0;
+  color: #172554;
+}
+header {
+  background: #142d4e;
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+main {
+  max-width: 650px;
+  margin: 25px auto;
+  padding: 15px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  box-shadow: 0 3px 12px #0001;
+}
+.money {
+  color: #15803d;
+  font-size: 28px;
+  font-weight: bold;
+}
+button, select {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  margin: 5px 3px;
+  font-size: 15px;
+}
+button {
+  background: #167d55;
+  color: white;
+  cursor: pointer;
+}
+button:disabled {
+  background: #999;
+}
+select {
+  border: 1px solid #ccc;
+  width: 100%;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #64748b;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏪 BizTycoon</h1>
+  <p>Build it. Sell it. Grow it!</p>
+</header>
+
+<main>
+
+<div class="card">
+  <h2>💰 Your Business Wallet</h2>
+  <p>Available Capital:</p>
+  <div class="money" id="balance">KSh 10,000</div>
+  <p>Business Profit: <span id="profit">KSh 0</span></p>
+</div>
+
+<div class="card">
+  <h2>🏬 Choose Your Business</h2>
+  <select id="business">
+    <option value="Clothing Shop">Clothing Shop</option>
+    <option value="Grocery Shop">Grocery Shop</option>
+    <option value="Beauty Shop">Beauty Shop</option>
+    <option value="Coffee Shop">Coffee Shop</option>
+  </select>
+  <p id="businessName">Your Clothing Shop</p>
+</div>
+
+<div class="card">
+  <h2>📦 Manage Your Stock</h2>
+  <p>Stock available: <b id="stock">0</b></p>
+  <p>Buy stock: KSh 500 per unit</p>
+  <button onclick="buyStock()">Buy Stock - KSh 500</button>
+  <button onclick="sellStock()">Sell Stock - KSh 800</button>
+</div>
+
+<div class="card">
+  <h2>📊 Business Report</h2>
+  <p>Units sold: <b id="sold">0</b></p>
+  <p>Business level: <b id="level">Beginner</b></p>
+  <p id="message">Welcome! Start your first business.</p>
+</div>
+
+</main>
+
+<footer>
+  BizTycoon © 2026 | Your Virtual Business Adventure
+</footer>
+
+<script>
+let balance = 10000;
+let profit = 0;
+let stock = 0;
+let sold = 0;
+
+function updateGame() {
+  document.getElementById("balance").textContent =
+    "KSh " + balance.toLocaleString();
+
+  document.getElementById("profit").textContent =
+    "KSh " + profit.toLocaleString();
+
+  document.getElementById("stock").textContent = stock;
+  document.getElementById("sold").textContent = sold;
+
+  document.getElementById("level").textContent =
+    sold >= 20 ? "Business Owner" :
+    sold >= 10 ? "Growing Entrepreneur" :
+    "Beginner";
+}
+
+function buyStock() {
+  if (balance >= 500) {
+    balance -= 500;
+    stock++;
+    document.getElementById("message").textContent =
+      "Stock purchased successfully!";
+  } else {
+    document.getElementById("message").textContent =
+      "Not enough money to buy stock!";
+  }
+  updateGame();
+}
+
+function sellStock() {
+  if (stock > 0) {
+    stock--;
+    balance += 800;
+    profit += 300;
+    sold++;
+
+    document.getElementById("message").textContent =
+      "Great sale! You made KSh 300 profit.";
+  } else {
+    document.getElementById("message").textContent =
+      "You need to buy stock before selling!";
+  }
+  updateGame();
+}
+
+document.getElementById("business").addEventListener("change",
+function() {
+  document.getElementById("businessName").textContent =
+    "Your " + this.value;
+});
+
+updateGame();
+</script>
+
+</body>
+</html>
